@@ -24,6 +24,6 @@ public class PlayerCamera : MonoBehaviour
     {
         Vector3 desiredPos = target.position + offset;
         Vector3 smoothPos = Vector3.Lerp(transform.position, desiredPos, smooth);
-        transform.position = desiredPos;
+        transform.position = smoothPos;
     }
 }
