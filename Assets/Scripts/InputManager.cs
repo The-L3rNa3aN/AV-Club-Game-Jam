@@ -17,7 +17,7 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D))
             rightInput?.Invoke();
 
-        if (Input.GetButtonDown("Jump")
+        if (Input.GetButtonDown("Jump"))
             jumpInput?.Invoke();
     }
 }

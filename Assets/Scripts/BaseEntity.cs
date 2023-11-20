@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 //Base class which will be inherited by the player and NPC classes.
@@ -6,31 +5,29 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class BaseEntity : MonoBehaviour
 {
-    // private const float MAX_ACCEL = 100f;
-    // private const float P_SPEED = 10f;
-    // private const float P_FRICTION = 0.2f;
-    private const float G_CONSTANT = -20f;
-    // private const float JUMP_HEIGHT = 3f;
+    protected const float G_CONSTANT = -20f;
 
-    // private float speed;
-    private Vector3 movementVector;
-    private CharacterController controller;
+    protected Vector3 movementVector;
+    protected CharacterController controller;
     
-    private void Start()
+    public virtual void Start()
     {
-        controller = GetComponent<Controller>();
+        controller = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
+        MoveEntity();
     }
 
-    private void MoveEntity()
+    public virtual void MoveEntity()
     {
         if(controller.isGrounded && movementVector.y < 0f)
             movementVector.y = -2f;
 
         movementVector.y += G_CONSTANT * Time.deltaTime;
-        controller.Move(movementVector);
+
+        Vector3 _move = new Vector3(movementVector.x, movementVector.y * Time.deltaTime, movementVector.z);
+        controller.Move(_move);
     }
 }
