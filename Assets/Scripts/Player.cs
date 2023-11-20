@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, HealthSystem            //Not sure if this will work.
 {
     private const float MAX_ACCEL = 100f;
     private const float P_SPEED = 10f;
