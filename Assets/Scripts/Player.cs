@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
         /*InputManager.leftInput += MoveLeft;
         InputManager.rightInput += MoveRight;*/
+        InputManager.jumpInput += Jump;
     }
 
     private void Update()
@@ -35,14 +36,20 @@ public class Player : MonoBehaviour
         if (controller.isGrounded && movementVector.y < 0f)
             movementVector.y = -2f;
 
-        if (Input.GetButtonDown("Jump") && controller.isGrounded)
-            movementVector.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * G_CONSTANT);
+        // if (Input.GetButtonDown("Jump") && controller.isGrounded)
+        //     movementVector.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * G_CONSTANT);
 
         movementVector.x += speed * Time.deltaTime;
         movementVector.x -= P_FRICTION * movementVector.x;
         movementVector.y += G_CONSTANT * Time.deltaTime;
 
         controller.Move(movementVector);
+    }
+
+    public void Jump()
+    {
+        if (Input.GetButtonDown("Jump") && controller.isGrounded)
+            movementVector.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * G_CONSTANT);
     }
 
     /*private void MoveLeft()
