@@ -26,7 +26,7 @@ public class BaseEntity : MonoBehaviour, HealthSystem
     protected float burnTimer;
     protected const float EFFECT_BURN_INI_TIME = 30f;
     
-    public virtual void Start()
+    protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
         mfdTimer = EFFECT_MFD_INI_TIME;
@@ -35,7 +35,7 @@ public class BaseEntity : MonoBehaviour, HealthSystem
         StartHealth(startHits);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         MoveEntity();
         ApplyEffects();
