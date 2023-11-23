@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class TestEntity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
+        var _player = other.GetComponent<BaseEntity>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // if(_player)
+        // {
+        //     if(!_player.isBurning)
+        //         _player.isBurning = true;
+        //     else
+        //         _player.ResetBurnTimer();
+        // }
+
+        // StartCoroutine(_player.IBurn());
+
+        _player.isCursed = true;
+        _player.markedForDeath = true;
+        _player.isSlowed = true;
     }
 }
