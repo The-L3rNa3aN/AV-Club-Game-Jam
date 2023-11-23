@@ -79,9 +79,9 @@ public class Player : BaseEntity
     public void HorizontalInput()
     {
         //TEMPORARY WORK AROUND. CODE NEEDS FURTHER REVIEWING.
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             lastFacing = -1;
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             lastFacing = 1;
 
         targetRotation = Quaternion.Euler(0f, -90f * lastFacing, 0f);           //Causing some sort of UnityEngine error. REQUIRES A REVIEW.

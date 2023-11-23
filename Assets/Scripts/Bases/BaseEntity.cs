@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 //Base class which will be inherited by the player and NPC classes.
@@ -23,14 +24,15 @@ public class BaseEntity : MonoBehaviour, HealthSystem
     protected const float EFFECT_MFD_INI_TIME = 20f;
 
     [Header("Burn variables")]
-    protected float burnTimer;
+    [SerializeField] protected float burnTimer = 0f;
+    [SerializeField] protected int burnTick = 0;
     protected const float EFFECT_BURN_INI_TIME = 30f;
     
     protected virtual void Start()
     {
         controller = GetComponent<CharacterController>();
         mfdTimer = EFFECT_MFD_INI_TIME;
-        burnTimer = EFFECT_BURN_INI_TIME;
+        //burnTimer = EFFECT_BURN_INI_TIME;
 
         StartHealth(startHits);
     }
@@ -93,67 +95,25 @@ public class BaseEntity : MonoBehaviour, HealthSystem
         }
 
         //Burn: name says it all. Deals 1 Damage point every 10 seconds for a period of 30 seconds.
-        if (isBurning)
-        {
-            burnTimer -= Time.deltaTime;
-
-            if (burnTimer % 10 <= 0)            //THIS NEEDS TESTING ASAP.
-                Damage(1);
-        }
-        else
-            burnTimer = EFFECT_BURN_INI_TIME;
-
-        if(burnTimer <= 0f)
-        {
-            isBurning = false;
-            burnTimer = EFFECT_BURN_INI_TIME;
-        }
-    }
-
-    //It's possible to use coroutines for the burning effect but something's not right here. NEEDS WORK.
-    int t;
-    float f;
-    public IEnumerator IBurn()
-    {
-        // while(t < 30)
-        // {
-        //     f += Time.deltaTime;
-        //     t = (int)f;
-
-        //     // if(t > 30)
-        //     // {
-        //     //     t = 30;
-        //     //     StopCoroutine(IBurn());
-        //     // }
-
-        //     if(t % 10 == 0 && t < 30)
-        //     {
-        //         Debug.Log("test " + t + " " + f);
-        //         yield return new WaitForSeconds(10);
-        //     }
-        //     else
-        //     {
-        //         t = 30;
-        //     }
-
-        //     yield return new WaitForEndOfFrame();
-        // }
-
         if(isBurning)
         {
-            //Add logic here.
-            Debug.Log("enabled");
-        }
-        else
-        {
-            // StopCoroutine(IBurn());
-            Debug.Log("disabled");
-        }
+            burnTimer += Time.deltaTime;
 
-        Debug.Log("test");
-        yield return new WaitForSeconds(10);
-        Debug.Log("test");
-        yield return new WaitForSeconds(10);
-        Debug.Log("test");
+            if (burnTick < 3)
+            {
+                if(burnTimer >= 10f)
+                {
+                    burnTimer = 0f;
+                    burnTick++;
+                    Damage(1);
+                }
+            }
+            else
+            {
+                isBurning = false;
+                burnTimer = 0f;
+                burnTick = 0;
+            }
+        }
     }
 }

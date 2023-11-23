@@ -8,18 +8,18 @@ public class TestEntity : MonoBehaviour
     {
         var _player = other.GetComponent<BaseEntity>();
 
-        // if(_player)
-        // {
-        //     if(!_player.isBurning)
-        //         _player.isBurning = true;
-        //     else
-        //         _player.ResetBurnTimer();
-        // }
+        if (_player)
+        {
+            if (!_player.isBurning)
+                _player.isBurning = true;
+            else
+                _player.ResetBurnTimer();
+        }
 
-        // StartCoroutine(_player.IBurn());
+        //_player.isCursed = true;
+        //_player.markedForDeath = true;
+        //_player.isSlowed = true;
 
-        _player.isCursed = true;
-        _player.markedForDeath = true;
-        _player.isSlowed = true;
+        //_player.isBurning = true;
     }
 }
