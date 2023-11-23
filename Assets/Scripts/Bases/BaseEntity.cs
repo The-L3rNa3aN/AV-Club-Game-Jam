@@ -53,6 +53,7 @@ public class BaseEntity : MonoBehaviour, HealthSystem
     }
 
     public virtual void StartHealth(int number) => hitsLeft = startHits;
+    public void RestoreHealth() => StartHealth(startHits);
 
     public virtual void Heal(int number) => hitsLeft += number;
 
@@ -69,11 +70,13 @@ public class BaseEntity : MonoBehaviour, HealthSystem
 
     public void ClearEffects()
     {
-        isBurning = false;
+        isSlowed = false;
         markedForDeath = false;
         isBurning = false;
         isCursed = false;
     }
+
+    public void ResetBurnTimer() => burnTimer = EFFECT_BURN_INI_TIME;
 
     public virtual void ApplyEffects()
     {
@@ -105,5 +108,52 @@ public class BaseEntity : MonoBehaviour, HealthSystem
             isBurning = false;
             burnTimer = EFFECT_BURN_INI_TIME;
         }
+    }
+
+    //It's possible to use coroutines for the burning effect but something's not right here. NEEDS WORK.
+    int t;
+    float f;
+    public IEnumerator IBurn()
+    {
+        // while(t < 30)
+        // {
+        //     f += Time.deltaTime;
+        //     t = (int)f;
+
+        //     // if(t > 30)
+        //     // {
+        //     //     t = 30;
+        //     //     StopCoroutine(IBurn());
+        //     // }
+
+        //     if(t % 10 == 0 && t < 30)
+        //     {
+        //         Debug.Log("test " + t + " " + f);
+        //         yield return new WaitForSeconds(10);
+        //     }
+        //     else
+        //     {
+        //         t = 30;
+        //     }
+
+        //     yield return new WaitForEndOfFrame();
+        // }
+
+        if(isBurning)
+        {
+            //Add logic here.
+            Debug.Log("enabled");
+        }
+        else
+        {
+            // StopCoroutine(IBurn());
+            Debug.Log("disabled");
+        }
+
+        Debug.Log("test");
+        yield return new WaitForSeconds(10);
+        Debug.Log("test");
+        yield return new WaitForSeconds(10);
+        Debug.Log("test");
     }
 }
