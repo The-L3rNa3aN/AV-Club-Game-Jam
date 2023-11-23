@@ -41,7 +41,6 @@ public class Player : BaseEntity
     {
         base.Update();
 
-        //RotateBasedOnFacing();
         visualizer.rotation = Quaternion.Lerp(visualizer.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
         //Initiating and resetting the dash cooldown timer.
@@ -91,22 +90,6 @@ public class Player : BaseEntity
     //There has to be a better way to set "isInteracting". THIS CODE AND THE ONE IN InputManager NEEDS A REVIEW.
     public void EnableInteract() => isInteracting = true;
     public void DisableInteract() => isInteracting = false;
-
-    public void RotateBasedOnFacing()
-    {
-        switch(lastFacing)
-        {
-            case -1:
-                targetRotation = Quaternion.Euler(0, -90f, 0);
-                Quaternion.Lerp(visualizer.localRotation, targetRotation, turnSpeed * Time.deltaTime);
-                break;
-
-            case 1:
-                targetRotation = Quaternion.Euler(0, 90f, 0);
-                Quaternion.Lerp(visualizer.localRotation, targetRotation, turnSpeed * Time.deltaTime);
-                break;
-        }
-    }
 
     public override void ApplyEffects()
     {
