@@ -1,10 +1,13 @@
-public interface HealthSystem
+namespace AVClub.Interfaces
 {
-    public void StartHealth(int number);
+    public interface HealthSystem
+    {
+        public void StartHealth(int number);
 
-    public void Heal(int number);
+        public void Heal(int number);
 
-    public void Damage(int number);
+        public void Damage(int number);
 
-    public void Kill();
+        public void Kill();
+    }
 }

@@ -1,25 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using AVClub.Bases;
 
-public class TestEntity : MonoBehaviour
+namespace AVClub
 {
-    private void OnTriggerEnter(Collider other)
+    public class TestEntity : MonoBehaviour
     {
-        var _player = other.GetComponent<BaseEntity>();
-
-        if (_player)
+        private void OnTriggerEnter(Collider other)
         {
-            if (!_player.isBurning)
-                _player.isBurning = true;
-            else
-                _player.ResetBurnTimer();
+            var _player = other.GetComponent<BaseEntity>();
+
+            if (_player)
+            {
+                if (!_player.isBurning)
+                    _player.isBurning = true;
+                else
+                    _player.ResetBurnTimer();
+            }
+
+            //_player.isCursed = true;
+            //_player.markedForDeath = true;
+            //_player.isSlowed = true;
+
+            //_player.isBurning = true;
         }
-
-        //_player.isCursed = true;
-        //_player.markedForDeath = true;
-        //_player.isSlowed = true;
-
-        //_player.isBurning = true;
     }
 }
