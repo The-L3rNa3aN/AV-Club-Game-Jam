@@ -9,7 +9,7 @@ namespace AVClub
     public class Player : BaseEntity
     {
         private const float P_SPEED_NORMAL = 300f;
-        private const float P_SPEED_SLOWED = 100f;
+        private const float P_SPEED_SLOWED = 185f;
         private const float P_FRICTION = 0.2f;
         private const float P_DASH_INI_TIMER = 5f;
         private const float P_DASH_IMPULSE = 300f;
@@ -28,13 +28,15 @@ namespace AVClub
         /*[SerializeField]*/
         private float lastFacing;                           //-1 for left and 1 for right.
 
-        [Header("Attack variables")]
+        [Header("MeleeAttack variables")]
         private Ray ray;
         private RaycastHit hit;
 
         protected override void Start()
         {
             startHits = 6;
+            visualizer.rotation = Quaternion.Euler(0f, -90f, 0f);
+            lastFacing = 1;
             base.Start();
 
             InputManager.jumpInput += Jump;
@@ -43,7 +45,8 @@ namespace AVClub
             InputManager.rightInput += HorizontalInput;
             InputManager.downInput_Down += EnableInteract;
             InputManager.downInput_Up += DisableInteract;
-            InputManager.attackInput += Attack;
+            InputManager.attackInput += MeleeAttack;
+            InputManager.altFireInput += RangedAttack;
         }
 
         protected override void Update()
@@ -96,15 +99,18 @@ namespace AVClub
             targetRotation = Quaternion.Euler(0f, -90f * lastFacing, 0f);           //Causing some sort of UnityEngine error. REQUIRES A REVIEW.
         }
 
-        public void Attack()
+        public void MeleeAttack()
         {
-            Debug.Log("ATTACK");
-
-            if (Physics.Raycast(visualizer.position, visualizer.forward, out hit))
+            if (Physics.Raycast(visualizer.position, -visualizer.forward, out hit))
             {
                 BaseEntity _entity = hit.transform.GetComponent<BaseEntity>();
                 _entity.Damage(1);
             }
+        }
+
+        public void RangedAttack()
+        {
+            //Add logic here.
         }
 
         //There has to be a better way to set "isInteracting". THIS CODE AND THE ONE IN InputManager NEEDS A REVIEW.

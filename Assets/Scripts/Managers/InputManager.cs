@@ -10,19 +10,27 @@ using UnityEngine;
     'S' key, Down Arrow - Interact / Move down a platform
     'E' key, 'Z' key - Dash
     'F' key, 'X' key - Dodge
-    Left Mouse Button - Attack
+    Left Mouse Button - Attack (melee)
 */
 
 public class InputManager : MonoBehaviour
 {
+    //Movement
     public static Action leftInput;
     public static Action rightInput;
     public static Action jumpInput;
+
+    //Interaction.
     public static Action downInput_Down;
     public static Action downInput_Up;
+
+    //Period-based movement.
     public static Action dashInput;
     public static Action dodgeInput;
+
+    //Combat.
     public static Action attackInput;
+    public static Action altFireInput;
 
     private void Update()
     {
@@ -46,6 +54,9 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
             attackInput?.Invoke();
+
+        if (Input.GetMouseButtonDown(1))
+            altFireInput?.Invoke();
 
         if (Input.GetButtonDown("Jump"))
             jumpInput?.Invoke();
