@@ -1,3 +1,4 @@
+using AVClub.Managers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using UnityEngine;
     'S' key, Down Arrow - Interact / Move down a platform
     'E' key, 'Z' key - Dash
     'F' key, 'X' key - Dodge
+    'Esc' - Toggle pause menu (code in GameManager)
     Left Mouse Button - Attack (melee)
 */
 
@@ -60,5 +62,16 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
             jumpInput?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.Escape))                   //NEEDS A REVIEW.
+        {
+            if (GameManager.instance.isGamePaused)
+                GameManager.instance.OnResumeGamePressed();
+            else
+            {
+                GameManager.instance._gUi.ToggleScreens(false);
+                GameManager.instance.TogglePauseState(true);
+            }
+        }
     }
 }
