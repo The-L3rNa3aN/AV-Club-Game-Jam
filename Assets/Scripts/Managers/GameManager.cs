@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace AVClub.Managers
 {
@@ -26,6 +27,17 @@ namespace AVClub.Managers
             lastSavePoint = savePoint;
 
             Debug.Log("GAME SAVED!");
+        }
+
+        //MAIN MENU CALLBACKS
+        public void OnPlayButtonPressed()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        public void OnExitButtonPressed()
+        {
+            Application.Quit();
         }
     }
 }
