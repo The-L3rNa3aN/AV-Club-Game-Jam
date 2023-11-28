@@ -12,6 +12,7 @@ namespace AVClub.UI
 
         public void ToggleScreens(bool state)
         {
+            Debug.Log("TOGGLESCREENS");
             gameScreen.SetActive(state);
             pauseScreen.SetActive(!state);
         }

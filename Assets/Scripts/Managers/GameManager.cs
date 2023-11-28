@@ -56,8 +56,8 @@ namespace AVClub.Managers
 
         public void TogglePauseState(bool state)
         {
-            Time.timeScale = state ? 1f : 0f;
             isGamePaused = state;
+            Time.timeScale = isGamePaused ? 0f : 1f;
         }
 
         //MAIN MENU UI CALLBACKS
@@ -79,6 +79,7 @@ namespace AVClub.Managers
 
         public void OnResumeGamePressed()
         {
+            Debug.Log("ONRESUMEGAMEPRESSED");
             _gUi.ToggleScreens(true);
             TogglePauseState(false);
         }
